@@ -1,0 +1,37 @@
+services:
+  redis:
+    image: redislabs/redismod
+    ports:
+      - '6379:6379'
+    container_name: redis
+    networks:
+      - data
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # target: builder
+    stop_signal: SIGINT
+    networks:
+      - proxy
+      - data
+    ports:
+      - '8000:8000'
+    # command: ["python", "app.py"]
+    # volumes:
+    #   - .:/app:ro
+    depends_on:
+      - redis
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.web.rule: "Host(`insights.autotrading.ua`)"
+      traefik.http.routers.web.tls: "true"
+      traefik.http.routers.web.tls.certresolver: "letsEncrypt"
+    restart: always
+
+networks:
+  proxy:
+    external: true
+  data:

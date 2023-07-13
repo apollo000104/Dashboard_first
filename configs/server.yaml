@@ -1,0 +1,7 @@
+type: PostgreSQLDB
+host: postgresql
+port: 5432
+db: dashboard
+credentials:
+  user: dbuser
+  password: ztV9v4vjS3PpbP+L

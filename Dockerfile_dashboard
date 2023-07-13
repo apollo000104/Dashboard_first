@@ -1,0 +1,25 @@
+# Використовуємо офіційний Python runtime який включає
+# додаткові залежності для побудови Python-застосунків.
+FROM python:3.10-slim-buster
+
+# Встановлюємо залежності за допомогою pip
+WORKDIR /
+COPY requirements.txt /requirements.txt
+RUN pip install -r requirements.txt
+
+# Копіюємо потрібні файли у контейнер
+COPY . /
+
+RUN ls
+
+# Встановлюємо змінну середовища для запуску застосунку
+ENV DASH_APP_NAME=
+ENV DASH_DEBUG_MODE=FALSE
+
+# Відкриваємо порт
+EXPOSE 8000
+
+# Запускаємо Dash застосунок
+
+CMD ["python", "app.py"]
+

@@ -1,0 +1,7 @@
+# conda env create -f conda.yaml
+name: stages-customer-service-dashboard-atollholding1
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - -r requirements.txt
